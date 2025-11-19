@@ -4,7 +4,7 @@ import { ChatBot } from './components/ChatBot';
 import { AiLab } from './components/ai-lab/AiLab';
 import { Preloader } from './components/ui/Preloader';
 import { ViewState } from './types';
-import { Shield, UserCheck, Building, Flame, Check } from 'lucide-react';
+import { Shield, UserCheck, Building, Flame, Check, CheckCircle, ArrowRight } from 'lucide-react';
 
 function App() {
   const [currentView, setCurrentView] = useState<ViewState>(ViewState.HOME);
@@ -37,7 +37,7 @@ function App() {
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="opacity-0 animate-reveal" style={{ animationDelay: '0.2s' }}>
             <img 
-              src="images/logo-transparent-4x.png" 
+              src="https://ai.studio/images/logo-transparent-4x.png" 
               alt="HROM SECURITY Logo" 
               className="h-32 md:h-48 mx-auto mb-8 drop-shadow-2xl animate-float"
             />
@@ -155,4 +155,69 @@ function App() {
                     <div className="grid md:grid-cols-2 gap-6 mb-6">
                        <div>
                           <label className="block text-gray-500 text-sm font-bold mb-2">Jméno</label>
-                          <input type="text" className="w-full bg-gray-800 border border-gray-7
+                          <input type="text" required className="w-full bg-gray-800 border border-gray-700 text-white p-3 rounded-lg focus:border-hrom-gold focus:outline-none transition-colors" placeholder="Jan Novák" />
+                       </div>
+                       <div>
+                          <label className="block text-gray-500 text-sm font-bold mb-2">Email</label>
+                          <input type="email" required className="w-full bg-gray-800 border border-gray-700 text-white p-3 rounded-lg focus:border-hrom-gold focus:outline-none transition-colors" placeholder="jan@firma.cz" />
+                       </div>
+                    </div>
+                    <div className="mb-6">
+                        <label className="block text-gray-500 text-sm font-bold mb-2">O co jde?</label>
+                        <textarea required rows={4} className="w-full bg-gray-800 border border-gray-700 text-white p-3 rounded-lg focus:border-hrom-gold focus:outline-none transition-colors" placeholder="Potřebuju pohlídat akci..."></textarea>
+                    </div>
+                    <button type="submit" className="w-full bg-hrom-gold text-black font-bold py-4 rounded-lg hover:bg-yellow-400 transition-all transform hover:scale-[1.02] shadow-lg shadow-yellow-900/20 flex items-center justify-center gap-2">
+                        Odeslat poptávku <ArrowRight className="w-5 h-5" />
+                    </button>
+                 </form>
+               ) : (
+                 <div className="text-center animate-in zoom-in duration-300 flex flex-col items-center justify-center h-full">
+                    <div className="w-24 h-24 bg-green-500/10 rounded-full flex items-center justify-center mb-6 relative">
+                        <div className="absolute inset-0 border-4 border-green-500/30 rounded-full animate-ping"></div>
+                        <CheckCircle className="w-12 h-12 text-green-500 animate-bounce-short" />
+                    </div>
+                    <h3 className="text-3xl font-bold text-white mb-2">Odesláno!</h3>
+                    <p className="text-gray-400 mb-8 max-w-md mx-auto">
+                        Díky za zprávu. Náš tým se na to podívá a ozveme se ti, co nevidět. Zatím buď v klidu.
+                    </p>
+                    <button 
+                        onClick={() => setFormSubmitted(false)}
+                        className="text-hrom-gold hover:text-white font-semibold underline transition-colors"
+                    >
+                        Poslat další zprávu
+                    </button>
+                 </div>
+               )}
+            </div>
+         </div>
+      </section>
+    </main>
+  );
+
+  return (
+    <div className="min-h-screen bg-hrom-bg text-gray-200 font-sans selection:bg-hrom-gold selection:text-black">
+      <Preloader isLoading={isLoading} />
+      
+      {!isLoading && (
+        <>
+          <Header currentView={currentView} onNavigate={setCurrentView} />
+          
+          {currentView === ViewState.HOME ? <MainContent /> : <AiLab onBack={() => setCurrentView(ViewState.HOME)} />}
+          
+          <ChatBot />
+
+          <footer className="bg-black py-8 border-t border-gray-800 text-center text-gray-600 text-sm">
+            <div className="container mx-auto px-4">
+                <p>&copy; {new Date().getFullYear()} HROM SECURITY. Všechna práva vyhrazena.</p>
+                <p className="mt-2">
+                    <a href="#" className="hover:text-hrom-gold transition-colors">Ochrana soukromí</a> • <a href="#" className="hover:text-hrom-gold transition-colors">Obchodní podmínky</a>
+                </p>
+            </div>
+          </footer>
+        </>
+      )}
+    </div>
+  );
+}
+
+export default App;
