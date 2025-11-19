@@ -37,7 +37,7 @@ function App() {
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="opacity-0 animate-reveal" style={{ animationDelay: '0.2s' }}>
             <img 
-              src="https://i.ibb.co/bXf9q7s/logo-transparent-4x.png" 
+              src="images/logo-transparent-4x.png" 
               alt="HROM SECURITY Logo" 
               className="h-32 md:h-48 mx-auto mb-8 drop-shadow-2xl animate-float"
             />

@@ -53,7 +53,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
                className="flex items-center"
              >
                <img 
-                 src="https://i.ibb.co/bXf9q7s/logo-transparent-4x.png" 
+                 src="images/logo-transparent-4x.png" 
                  alt="HROM SECURITY" 
                  className="h-14 w-auto hover:scale-105 transition-transform duration-300"
                />

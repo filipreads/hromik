@@ -24,7 +24,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ isLoading }) => {
       <div className="relative mb-8 p-8">
          <div className="absolute inset-0 bg-hrom-gold/10 blur-3xl rounded-full animate-pulse"></div>
          <img 
-           src="https://i.ibb.co/bXf9q7s/logo-transparent-4x.png" 
+           src="images/preloader-2.gif" 
            alt="HROM SECURITY" 
            className="h-32 w-auto relative z-10 animate-float"
          />
