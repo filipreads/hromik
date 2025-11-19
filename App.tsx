@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { ChatBot } from './components/ChatBot';
 import { AiLab } from './components/ai-lab/AiLab';
+import { Preloader } from './components/ui/Preloader';
 import { ViewState } from './types';
 import { Shield, UserCheck, Building, Flame, Check } from 'lucide-react';
 
 function App() {
   const [currentView, setCurrentView] = useState<ViewState>(ViewState.HOME);
+  const [isLoading, setIsLoading] = useState(true);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  useEffect(() => {
+    // Simulate initial loading/system check
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSmoothScroll = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
@@ -26,7 +37,7 @@ function App() {
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="opacity-0 animate-reveal" style={{ animationDelay: '0.2s' }}>
             <img 
-              src="https://github.com/filipreads/hromik/edit/main/App.tsx#:~:text=hrom%20security@-,4x.png" 
+              src="https://i.ibb.co/bXf9q7s/logo-transparent-4x.png" 
               alt="HROM SECURITY Logo" 
               className="h-32 md:h-48 mx-auto mb-8 drop-shadow-2xl animate-float"
             />
@@ -138,45 +149,10 @@ function App() {
                Ozvi se. Dáme ti nabídku rychlejc, než řekneš 'gorila'.
             </p>
             
-            <form className="bg-hrom-bg p-8 md:p-12 rounded-2xl shadow-2xl text-left border border-gray-800" onSubmit={(e) => { e.preventDefault(); alert('Formulář odeslán (Demo).'); }}>
-               <div className="grid md:grid-cols-2 gap-6 mb-6">
-                  <div>
-                     <label className="block text-gray-500 text-sm font-bold mb-2">Jméno</label>
-                     <input type="text" className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg p-4 focus:ring-2 focus:ring-hrom-gold outline-none transition-all" required />
-                  </div>
-                  <div>
-                     <label className="block text-gray-500 text-sm font-bold mb-2">Email</label>
-                     <input type="email" className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg p-4 focus:ring-2 focus:ring-hrom-gold outline-none transition-all" required />
-                  </div>
-               </div>
-               <div className="mb-8">
-                   <label className="block text-gray-500 text-sm font-bold mb-2">O co jde?</label>
-                   <textarea rows={4} className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg p-4 focus:ring-2 focus:ring-hrom-gold outline-none transition-all" placeholder="Popište nám vaši akci..."></textarea>
-               </div>
-               <button className="w-full bg-hrom-gold text-black font-black text-xl py-4 rounded-lg hover:bg-yellow-400 transition-colors shadow-lg shadow-yellow-500/20">
-                  ODESLAT POPTÁVKU
-               </button>
-            </form>
-         </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-black py-8 border-t border-gray-900 text-center text-gray-600 text-sm">
-         <p>&copy; 2025 HROM SECURITY. Všechna práva vyhrazena.</p>
-         <p className="mt-2">AI Powered by Gemini 2.5 Flash</p>
-      </footer>
-    </main>
-  );
-
-  return (
-    <div className="min-h-screen bg-hrom-bg text-hrom-text font-sans selection:bg-hrom-gold selection:text-black">
-      <Header currentView={currentView} onNavigate={setCurrentView} />
-      
-      {currentView === ViewState.HOME ? <MainContent /> : <AiLab onBack={() => setCurrentView(ViewState.HOME)} />}
-      
-      <ChatBot />
-    </div>
-  );
-}
-
-export default App;
+            <div className="bg-hrom-bg p-8 md:p-12 rounded-2xl shadow-2xl text-left border border-gray-800 min-h-[450px] flex flex-col justify-center">
+               {!formSubmitted ? (
+                 <form className="w-full animate-in fade-in duration-300" onSubmit={(e) => { e.preventDefault(); setFormSubmitted(true); }}>
+                    <div className="grid md:grid-cols-2 gap-6 mb-6">
+                       <div>
+                          <label className="block text-gray-500 text-sm font-bold mb-2">Jméno</label>
+                          <input type="text" className="w-full bg-gray-800 border border-gray-7
